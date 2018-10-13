@@ -20,24 +20,35 @@
       dataType: 'json',
       data: JSON.stringify(query),
       success: function(res) {
+        //var bounds = new google.maps.LatLngBounds();
+        /* WHITELIST */
         $(res.points).each(function(idx, point) {
-          var coords = point.loc.coordinates;
-          markers.push(new google.maps.Marker({
-            position: {lat: coords[0], lng: coords[1]},
-            animation: google.maps.Animation.DROP,
-            map: map,
-            icon: '/assets/images/pin-whitelist.svg'
-          }));
+          var location = {lat: point.loc.coordinates[0], lng: point.loc.coordinates[1]},
+              marker = new google.maps.Marker({
+                position: location,
+                animation: google.maps.Animation.DROP,
+                map: map,
+                icon: '/assets/images/pin-whitelist.svg'
+              });
+          markers.push(marker);
+          console.log(marker);
+          //bounds.extend(marker);
         });
+        /* BLACKLIST */
         $(res.blackPoints).each(function(idx, point) {
-          var coords = point.loc.coordinates;
-          markers.push(new google.maps.Marker({
-            position: { lat: coords[0], lng: coords[1] },
-            animation: google.maps.Animation.DROP,
-            map: map,
-            icon: '/assets/images/pin-blacklist.svg'
-          }));
+          var location = {lat: point.loc.coordinates[0], lng: point.loc.coordinates[1]},
+              marker = new google.maps.Marker({
+                position: location,
+                animation: google.maps.Animation.DROP,
+                map: map,
+                icon: '/assets/images/pin-blacklist.svg'
+              });
+          markers.push(marker);
+          console.log(marker);
+          //bounds.extend(location);
         });
+        /* FIT TO BOUNDS */
+        //map.fitBounds(bounds);
       },
       error: function() {
         console.log(arguments);
@@ -134,6 +145,7 @@
           // Only geocodes have viewport.
           bounds.union(place.geometry.viewport);
         } else {
+          console.log(place.geometry.location);
           bounds.extend(place.geometry.location);
         }
       });
