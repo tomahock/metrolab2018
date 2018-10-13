@@ -8,17 +8,14 @@ body {
 
 #search {
   position: relative;
-  height: 100vh;
+  min-height: 100vh;
   h1 {
     font-weight: 900;
     font-size: 2rem;
     margin-bottom: 2rem;
   }
-  .container-fluid, .row {
-    height: 100%;
-  }
-  .row > * {
-    height: 50%;
+  .container-fluid, .row, .row > * {
+    min-height: 100vh;
   }
   .form-inline {
     font-size: 1.2rem;
@@ -100,15 +97,7 @@ body {
 
 // Medium devices (tablets, 768px and up)
 @media (min-width: 768px) {
-
-}
-
-// Large devices (desktops, 992px and up)
-@media (min-width: 992px) {
   #search {
-    .row > * {
-      height: 100%;
-    }
     .search {
       flex-basis: 40%;
     }
@@ -116,6 +105,11 @@ body {
       flex-basis: 60%;
     }
   }
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) {
+
 }
 
 // Extra large devices (large desktops, 1200px and up)
