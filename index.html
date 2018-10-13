@@ -1,7 +1,118 @@
 ---
 ---
-<section id="home">
-  <div class="container">
-    <h1>hello world</h1>
+<section id="search">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12 col-md-4 p-3 d-flex flex-column">
+        <header id="header">
+          <h1>
+            <a href="/">
+              {% if site.logo %}
+              <img src="{{site.logo}}" alt="{{site.title}}" />
+              <span class="sr-only">{{site.title}}</span>
+              {% else %}
+              {{site.title}}
+              {% endif %}
+            </a>
+          </h1>
+        </header>
+        <form class="form-inline">
+          <div class="form-group">
+            <label for="search-what">I'm looking for </label>
+            <select id="search-what" name="search-what" class="form-control form-control-lg">
+              <option value="houses">houses</option>
+              <option value="houses">rooms</option>
+              <option value="offices">offices</option>
+              <option value="stores">stores</option>
+              <option value="parking">parking spaces</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="search-where">in</label>
+            <input id="search-where" name="search-where" type="search" class="form-control form-control-lg">
+          </div>
+          <div class="form-group">
+            <label for="search-what-for">to</label>
+            <select id="search-what-for" name="search-what-for" class="form-control form-control-lg">
+              <option value="rent">rent</option>
+              <option value="buy">buy</option>
+            </select>
+          </div>
+          <div class="form-group" data-name="search-near">
+            <label for="search-that">that</label>
+            <select id="search-that" name="search-that" class="form-control form-control-lg">
+              <option value="are">are</option>
+              <option value="are not">are not</option>
+            </select>
+            <label for="search-near">near</label>
+            <select id="search-near" name="search-near" class="form-control form-control-lg">
+              <option value="aerodrome">airport</option>
+              <option value="beach">beach</option>
+              <option value="hospital">hospital</option>
+              <option value="marina">marina</option>
+              <option value="park">park</option>
+              <option value="schools">schools</option>
+              <option value="station">station</option>
+              <option value="supermarket">supermarket</option>
+              <option value="universities">universities</option>
+            </select>
+          </div>
+          <button id="search-add-rule" type="button" class="btn btn-primary rounded-circle">+</button>
+          {% raw %}
+          <script type="x-tmpl-mustache" data-template="search-near">
+            <div class="form-group">
+              <label for="search-that-{{index}}">and</label>
+              <select id="search-that-{{index}}" name="search-that-{{index}}" class="form-control form-control-lg">
+                <option value="is">are</option>
+                <option value="is not">are not</option>
+              </select>
+              <label for="search-near-{{index}}">near</label>
+              <select id="search-near-{{index}}" name="search-near-{{index}}" class="form-control form-control-lg">
+                <option value="atm">atm</option>
+                <option value="bakery">bakery</option>
+                <option value="bank">bank</option>
+                <option value="bar">bar</option>
+                <option value="butcher">butcher</option>
+                <option value="cafe">cafe</option>
+                <option value="car_repair">car repair</option>
+                <option value="cinema">cinema</option>
+                <option value="convenience">convenience</option>
+                <option value="cp">cp</option>
+                <option value="ferry_terminal">ferry terminal</option>
+                <option value="fuel">gas station</option>
+                <option value="golf_course">golf course</option>
+                <option value="hostel">hostel</option>
+                <option value="hotel">hotel</option>
+                <option value="mall">mall</option>
+                <option value="monument">monument</option>
+                <option value="motel">motel</option>
+                <option value="museum">museum</option>
+                <option value="parking">parking</option>
+                <option value="pharmacy">pharmacy</option>
+                <option value="place_of_worship">place of worship</option>
+                <option value="police">police station</option>
+                <option value="post_office">post office</option>
+                <option value="pub">pub</option>
+                <option value="recycling">recycling</option>
+                <option value="restaurant">restaurant</option>
+                <option value="shop">shop</option>
+                <option value="stadium">stadium</option>
+                <option value="theatre">theatre</option>
+                <option value="theme park">theme park</option>
+                <option value="veterinary">veterinary</option>
+                <option value="zoo">zoo</option>
+              </select>
+            </div>
+          </script>
+          {% endraw %}
+        </form>
+        <footer id="footer" class="mt-auto text-center">
+          Made with 💖 in Metrolab Hackathon &middot; Porto 2018
+        </footer>
+      </div>
+      <div class="col-12 col-md-8">
+        <div id="search-map"></div>
+      </div>
+    </div>
   </div>
 </section>
