@@ -1,67 +1,63 @@
 ---
 ---
-
 body {
   font-family: 'Montserrat', sans-serif;
   display: flex;
   flex-direction: column;
 }
 
-h1 {
-  font-weight: 900;
-  font-size: 2rem;
-}
-
-mark {
-  padding: 0;
-}
-
-.navbar {
-  z-index: 10;
-  .navbar-brand {
-    margin-bottom: 0;
-  }
-  box-shadow: 0 1px 5px rgba(#000, .3);
-}
-
-.btn {
-  display: inline-flex;
-  text-transform: uppercase;
-  text-shadow: none;
-  font-weight: 600;
-  &.btn-lg {
-    padding: 1rem 2rem;
-  }
-}
-
-.form-control {
-  box-shadow: 0 0 5px rgba(#000, .5);
-}
-
-.form-inline {
-  .form-group {
-    margin: 0 0 1rem;
-    > * {
-      margin-right: 1rem;
-    }
-  }
-  label {
-    font-weight: 500;
-  }
-  select, input {
-    text-transform: lowercase;
-    margin: 0;
-  }
-}
-
 #search {
   position: relative;
   height: 100vh;
-  font-size: 1.25rem;
+  h1 {
+    font-weight: 900;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
   .container-fluid, .row {
     height: 100%;
   }
-  #search-map {
+  .row > * {
+    height: 50%;
+  }
+  .form-inline {
+    font-size: 1.2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #eaeaea;
+    margin-bottom: 2rem;
+    .form-group {
+      margin: 0 0 1rem;
+      > * {
+        margin-right: 1rem;
+      }
+    }
+    .form-control {
+      box-shadow: 0 0 5px rgba(#000, .5);
+    }
+    label {
+      font-weight: 500;
+    }
+    select, input {
+      text-transform: lowercase;
+      margin: 0;
+      font-size: 1.2rem;
+    }
+    button {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      &.disabled {
+        opacity: .3;
+        cursor: not-allowed;
+      }
+    }
+  }
+  .search {
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 0 10px rgba(#000, .3);
+  }
+  #map {
     position: absolute;
     z-index: 1;
     top: 0;
@@ -69,16 +65,24 @@ mark {
     bottom: 0;
     left: 0;
   }
-  #search-add-rule {
+  .add-remove-rule {
     width: 2rem;
     height: 2rem;
-    margin-bottom: 1rem;
     display: infline-flex;
     justify-content: center;
     align-items: center;
     font-weight: 300;
     font-size: 2rem;
     line-height: 0;
+    &.remove {
+      transform: rotate(45deg);
+    }
+  }
+  #search-results {
+    h2 {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
   }
 }
 
@@ -96,14 +100,22 @@ mark {
 
 // Medium devices (tablets, 768px and up)
 @media (min-width: 768px) {
-  h1 {
-    font-size: 3rem;
-  }
+
 }
 
 // Large devices (desktops, 992px and up)
 @media (min-width: 992px) {
-
+  #search {
+    .row > * {
+      height: 100%;
+    }
+    .search {
+      flex-basis: 40%;
+    }
+    .map {
+      flex-basis: 60%;
+    }
+  }
 }
 
 // Extra large devices (large desktops, 1200px and up)

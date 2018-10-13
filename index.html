@@ -3,12 +3,12 @@
 <section id="search">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-12 col-md-4 p-3 d-flex flex-column">
+      <div class="search col-12 p-3 d-flex flex-column">
         <header id="header">
-          <h1>
+          <h1 class="text-center">
             <a href="/">
               {% if site.logo %}
-              <img src="{{site.logo}}" alt="{{site.title}}" />
+              <img src="{{site.logo}}" alt="{{site.title}}" height="100" />
               <span class="sr-only">{{site.title}}</span>
               {% else %}
               {{site.title}}
@@ -16,7 +16,7 @@
             </a>
           </h1>
         </header>
-        <form class="form-inline">
+        <form id="search-form" class="form-inline">
           <div class="form-group">
             <label for="search-what">I'm looking for </label>
             <select id="search-what" name="search-what" class="form-control form-control-lg">
@@ -29,7 +29,7 @@
           </div>
           <div class="form-group">
             <label for="search-where">in</label>
-            <input id="search-where" name="search-where" type="search" class="form-control form-control-lg">
+            <input id="search-where" name="search-where" type="text" class="form-control form-control-lg" placeholder="type a location">
           </div>
           <div class="form-group">
             <label for="search-what-for">to</label>
@@ -38,36 +38,47 @@
               <option value="buy">buy</option>
             </select>
           </div>
-          <div class="form-group" data-name="search-near">
-            <label for="search-that">that</label>
-            <select id="search-that" name="search-that" class="form-control form-control-lg">
+          <div class="form-group" data-search-rule>
+            <label for="search-condition-0">that</label>
+            <select id="search-condition-0" name="search-condition-0" class="form-control form-control-lg">
               <option value="are">are</option>
               <option value="are not">are not</option>
             </select>
-            <label for="search-near">near</label>
-            <select id="search-near" name="search-near" class="form-control form-control-lg">
-              <option value="aerodrome">airport</option>
-              <option value="beach">beach</option>
-              <option value="hospital">hospital</option>
-              <option value="marina">marina</option>
-              <option value="park">park</option>
+            <label for="search-rule-0">near</label>
+            <select id="search-rule-0" name="search-rule-0" class="form-control form-control-lg">
+              <option value="">choose...</option>
               <option value="schools">schools</option>
-              <option value="station">station</option>
-              <option value="supermarket">supermarket</option>
               <option value="universities">universities</option>
+              <option value="station">station</option>
+              <option value="cp">cp</option>
+              <option value="aerodrome">airport</option>
+              <option value="hospital">hospital</option>
+              <option value="supermarket">supermarket</option>
+              <option value="park">park</option>
+              <option value="beach">beach</option>
             </select>
+            <button type="button" class="add-remove-rule disabled btn btn-primary rounded-circle">+</button>
           </div>
-          <button id="search-add-rule" type="button" class="btn btn-primary rounded-circle">+</button>
           {% raw %}
-          <script type="x-tmpl-mustache" data-template="search-near">
-            <div class="form-group">
-              <label for="search-that-{{index}}">and</label>
-              <select id="search-that-{{index}}" name="search-that-{{index}}" class="form-control form-control-lg">
-                <option value="is">are</option>
-                <option value="is not">are not</option>
+          <script type="x-tmpl-mustache" data-template="search-rule">
+            <div class="form-group" data-search-rule>
+              <label for="search-condition-{{index}}">and</label>
+              <select id="search-condition-{{index}}" name="search-condition-{{index}}" class="form-control form-control-lg">
+                <option value="are">are</option>
+                <option value="are not">are not</option>
               </select>
-              <label for="search-near-{{index}}">near</label>
-              <select id="search-near-{{index}}" name="search-near-{{index}}" class="form-control form-control-lg">
+              <label for="search-rule-{{index}}">near</label>
+              <select id="search-rule-{{index}}" name="search-rule-{{index}}" class="form-control form-control-lg">
+                <option value="">choose...</option>
+                <option value="schools">schools</option>
+                <option value="universities">universities</option>
+                <option value="station">station</option>
+                <option value="cp">cp</option>
+                <option value="aerodrome">airport</option>
+                <option value="hospital">hospital</option>
+                <option value="supermarket">supermarket</option>
+                <option value="park">park</option>
+                <option value="beach">beach</option>
                 <option value="atm">atm</option>
                 <option value="bakery">bakery</option>
                 <option value="bank">bank</option>
@@ -102,16 +113,36 @@
                 <option value="veterinary">veterinary</option>
                 <option value="zoo">zoo</option>
               </select>
+              <button type="button" class="add-remove-rule disabled btn btn-primary rounded-circle">+</button>
             </div>
           </script>
           {% endraw %}
         </form>
+        <div id="search-results" class="d-none">
+          <h2>Info:</h2>
+          <dl class="list-unstyled">
+            {% raw %}
+            <script type="x-tmpl-mustache" data-template="search-results">
+              <dt>Average Age:</dt><dd>{{age}}</dd>
+              <dt>IMI coeficient:</dt><dd>{{imi}}</dd>
+              {{#weather}}
+              <dt>Weather:</dt><dd>
+                <ul class="list-unstyled">
+                  <li>Air Quality: {{airQuality}}</li>
+                  <li>Max Temp: {{max}}</li>
+                  <li>Min Temp: {{min}}</li>
+                </ul>
+              {{/weather}}
+            </script>
+            {% endraw %}
+          </dl>
+        </div>
         <footer id="footer" class="mt-auto text-center">
           Made with 💖 in Metrolab Hackathon &middot; Porto 2018
         </footer>
       </div>
-      <div class="col-12 col-md-8">
-        <div id="search-map"></div>
+      <div class="map col-12">
+        <div id="map"></div>
       </div>
     </div>
   </div>
