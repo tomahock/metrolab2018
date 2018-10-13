@@ -13,6 +13,7 @@
       marker.setMap(null);
     });
     markers = [];
+    $('#search-results').addClass('d-none').find('dl').html('');
     $.ajax({
       url: 'https://tomahock.com/cenas/amp/polygon.php',
       cors: true,
@@ -49,6 +50,11 @@
         });
         /* FIT TO BOUNDS */
         //map.fitBounds(bounds);
+        $('#search-results').removeClass('d-none').find('dl').html(Mustache.render(templates['search-results'], {
+          age: res.averageAge,
+          imi: res.imi,
+          weather: res.weather
+        }));
       },
       error: function() {
         console.log(arguments);

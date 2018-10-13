@@ -118,6 +118,25 @@
           </script>
           {% endraw %}
         </form>
+        <div id="search-results" class="d-none">
+          <h2>Info:</h2>
+          <dl class="list-unstyled">
+            {% raw %}
+            <script type="x-tmpl-mustache" data-template="search-results">
+              <dt>Average Age:</dt><dd>{{age}}</dd>
+              <dt>IMI coeficient:</dt><dd>{{imi}}</dd>
+              {{#weather}}
+              <dt>Weather:</dt><dd>
+                <ul class="list-unstyled">
+                  <li>Air Quality: {{airQuality}}</li>
+                  <li>Max Temp: {{max}}</li>
+                  <li>Min Temp: {{min}}</li>
+                </ul>
+              {{/weather}}
+            </script>
+            {% endraw %}
+          </dl>
+        </div>
         <footer id="footer" class="mt-auto text-center">
           Made with 💖 in Metrolab Hackathon &middot; Porto 2018
         </footer>

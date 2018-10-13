@@ -22,6 +22,9 @@ body {
   }
   .form-inline {
     font-size: 1.2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #eaeaea;
+    margin-bottom: 2rem;
     .form-group {
       margin: 0 0 1rem;
       > * {
@@ -73,6 +76,12 @@ body {
     line-height: 0;
     &.remove {
       transform: rotate(45deg);
+    }
+  }
+  #search-results {
+    h2 {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
     }
   }
 }
