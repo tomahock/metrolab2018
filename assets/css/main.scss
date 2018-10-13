@@ -8,9 +8,8 @@ body {
 }
 
 h1 {
-  text-transform: uppercase;
   font-weight: 900;
-  font-size: 3rem;
+  font-size: 2rem;
 }
 
 mark {
@@ -18,12 +17,11 @@ mark {
 }
 
 .navbar {
+  z-index: 10;
   .navbar-brand {
     margin-bottom: 0;
   }
-  a {
-    color: #fff;
-  }
+  box-shadow: 0 1px 5px rgba(#000, .3);
 }
 
 .btn {
@@ -31,95 +29,61 @@ mark {
   text-transform: uppercase;
   text-shadow: none;
   font-weight: 600;
-  border-radius: 10rem;
   &.btn-lg {
     padding: 1rem 2rem;
   }
 }
 
-.modal-content {
-  overflow: hidden;
+.form-control {
+  box-shadow: 0 0 5px rgba(#000, .5);
 }
 
-.carousel {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  &, .carousel-inner, .carousel-item {
+.form-inline {
+  .form-group {
+    margin: 0 0 1rem;
+    > * {
+      margin-right: 1rem;
+    }
+  }
+  label {
+    font-weight: 500;
+  }
+  select, input {
+    text-transform: lowercase;
+    margin: 0;
+  }
+}
+
+#search {
+  position: relative;
+  height: 100vh;
+  font-size: 1.25rem;
+  .container-fluid, .row {
     height: 100%;
   }
-  .carousel-item {
-    background: #000;
-    img {
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      opacity: .6;
-    }
-    .container {
-      display: flex;
-      flex-direction: column;
-      position: relative;
-      height: 100%;
-      z-index: 2;
-      color: #fff;
-      text-shadow: 0 1px 3px rgba(0, 0, 0, .5);
-    }
-    .body {
-      font-size: 1.5rem;
-      margin-bottom: 2rem;
-    }
+  #search-map {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
   }
-}
-
-section {
-  position: relative;
-  min-height: 100vh;
-  background: #FAFAFA;
-  &:first-child {
-    min-height: calc(100vh - 3.5rem);
-  }
-  .container {
-    padding-top: 2rem;
-    padding-bottom: 2rem;
-    > h1 {
-      margin-bottom: 2rem;
-    }
-  }
-  .content {
-    font-size: 1.25rem;
+  #search-add-rule {
+    width: 2rem;
+    height: 2rem;
+    margin-bottom: 1rem;
+    display: infline-flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 300;
+    font-size: 2rem;
+    line-height: 0;
   }
 }
 
 #footer {
-  margin-top: auto;
-  min-height: 15rem;
-  padding-top: 2rem;
-  background: #333;
-  color: #fff;
-}
-
-#search-modal {
-  #search-modal-title {
-    font-weight: 700;
-    margin-bottom: 1rem;
-  }
-  #search-modal-results {
-    margin-bottom: 0;
-    li {
-      div {
-        font-size: .875rem;
-      }
-      &:not(:last-child) {
-        margin-bottom: 1rem;
-      }
-    }
-  }
+  font-size: 1rem;
 }
 
 // Extra small devices (portrait phones, less than 576px)
@@ -133,15 +97,13 @@ section {
 // Medium devices (tablets, 768px and up)
 @media (min-width: 768px) {
   h1 {
-    font-size: 5rem;
+    font-size: 3rem;
   }
 }
 
 // Large devices (desktops, 992px and up)
 @media (min-width: 992px) {
-  .navbar-search {
-    margin-left: 1rem;
-  }
+
 }
 
 // Extra large devices (large desktops, 1200px and up)

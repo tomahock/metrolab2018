@@ -4,49 +4,82 @@
 
   /* SEARCH */
   (function() {
-    var modal = $('#search-modal'),
-        input = $('#search-modal-input');
-
-    if (!modal.length) return;
-
-    function diacritics(str) {
-      var chars = {a: '\u00E0-\u00E3', e: '\u00E9-\u00EA', o: '\u00F3-\u00F5', u: '\u00FA', c: '\u00E7'};
-      str = str.toLowerCase();
-      for (var i = 0, l = str.length, r = '', c; i < l; i++) (c = str.charAt(i), r += chars[c] ? '[' + c + chars[c] + ']' : c);
-      return r;
-    }
-
-    function search(needle, haystack, options) {
-      options = $.extend(options, {start: 50, stop: 200});
-      needle = needle.replace(/[.?*+^$[\](){}|\\]/g, '');
-      var regex = new RegExp('(' + diacritics(needle) + ')', 'gi');
-      if (!regex.test(haystack)) return false;
-      haystack = haystack.replace(regex, '<mark>$1</mark>');
-      var length = haystack.length,
-          start = Math.max(0, haystack.indexOf('<mark>') - options.start),
-          stop = Math.min(length, options.stop);
-      haystack = haystack.substr(start, stop);
-      haystack = haystack.slice(start ? haystack.indexOf(' ') + 1 : start, stop < length ? haystack.lastIndexOf(' ') : length);
-      haystack = (start ? '...' : '') + haystack + (stop < length ? '...' : '');
-      return haystack;
-    }
-
-    modal.on('shown.bs.modal', function() {
-      $('#search-modal-input').focus();
-    }).on('hidden.bs.modal', function() {
-      $('#search-modal-input').val('');
-      $('#search-modal-results').html('').addClass('d-none');
+    $('#search-add-rule').on('click', function() {
+      $(this).before(Mustache.render(templates['search-near'], {index: $('[data-name="search-near"]').length}));
     });
+  }());
 
-    input.on('input', function(evt) {
-      var needle = evt.target.value,
-          results = needle.length > 3 && window.search.map(function (page) {
-            return $.extend({}, page, { content: search(needle, page.content) });
-          }).filter(function (page) {
-            return !!page.content;
+  /* GOOGLE MAPS */
+  (function() {
+    $.ajax({
+      url: 'https://maps.googleapis.com/maps/api/js?key=AIzaSyAMkJYJQ65lqcth6lpVlS2zjE5agP5PrJE&libraries=places',
+      dataType: 'script',
+      success: function () {
+        var container = $('#search-map')[0],
+            input = $('#search-where')[0],
+            map = new google.maps.Map(container, {
+              center: { lat: 41.154229, lng: -8.6193252 },
+              zoom: 13,
+              mapTypeId: 'roadmap'
+            }),
+            searchBox = new google.maps.places.SearchBox(input);
+        
+        // map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+        // Bias the SearchBox results towards current map's viewport.
+        map.addListener('bounds_changed', function () {
+          searchBox.setBounds(map.getBounds());
+        });
+
+        var markers = [];
+        // Listen for the event fired when the user selects a prediction and retrieve
+        // more details for that place.
+        searchBox.addListener('places_changed', function () {
+          var places = searchBox.getPlaces();
+
+          if (places.length == 0) {
+            return;
+          }
+
+          // Clear out the old markers.
+          markers.forEach(function (marker) {
+            marker.setMap(null);
           });
+          markers = [];
 
-      $('#search-modal-results').toggleClass('d-none', !results).html(Mustache.render(templates['search'], {results: results}));
+          // For each place, get the icon, name and location.
+          var bounds = new google.maps.LatLngBounds();
+          places.forEach(function (place) {
+            if (!place.geometry) {
+              console.log("Returned place contains no geometry");
+              return;
+            }
+            var icon = {
+              url: place.icon,
+              size: new google.maps.Size(71, 71),
+              origin: new google.maps.Point(0, 0),
+              anchor: new google.maps.Point(17, 34),
+              scaledSize: new google.maps.Size(25, 25)
+            };
+
+            // Create a marker for each place.
+            markers.push(new google.maps.Marker({
+              map: map,
+              icon: icon,
+              title: place.name,
+              position: place.geometry.location
+            }));
+
+            if (place.geometry.viewport) {
+              // Only geocodes have viewport.
+              bounds.union(place.geometry.viewport);
+            } else {
+              bounds.extend(place.geometry.location);
+            }
+          });
+          map.fitBounds(bounds);
+        });
+      }
     });
   }());
 
