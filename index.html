@@ -8,7 +8,7 @@
           <h1 class="text-center">
             <a href="/">
               {% if site.logo %}
-              <img src="{{site.logo}}" alt="{{site.title}}" height="100" />
+              <img src="{{site.logo | prepend: '/assets/images/'}}" alt="{{site.title}}" height="100" />
               <span class="sr-only">{{site.title}}</span>
               {% else %}
               {{site.title}}
