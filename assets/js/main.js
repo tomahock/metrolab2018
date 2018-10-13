@@ -9,7 +9,7 @@
   function search() {
     console.log(query);
     if (!query.lat || !query.lng) return;
-    $(markers).each(function(marker) {
+    $(markers).each(function(idx, marker) {
       marker.setMap(null);
     });
     markers = [];
@@ -38,7 +38,6 @@
 
   function buildQuery() {
     var elms = $('input, select', $('#search-form')), white = [], black = [];
-    console.log('Build Query');
     elms.each(function (idx, elm) {
       elm = $(elm);
       switch (true) {
