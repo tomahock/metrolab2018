@@ -26,7 +26,16 @@
             position: {lat: coords[0], lng: coords[1]},
             animation: google.maps.Animation.DROP,
             map: map,
-            icon: '/assets/images/pin.svg'
+            icon: '/assets/images/pin-whitelist.svg'
+          }));
+        });
+        $(res.blackPoints).each(function(idx, point) {
+          var coords = point.loc.coordinates;
+          markers.push(new google.maps.Marker({
+            position: { lat: coords[0], lng: coords[1] },
+            animation: google.maps.Animation.DROP,
+            map: map,
+            icon: '/assets/images/pin-blacklist.svg'
           }));
         });
       },
@@ -149,7 +158,7 @@
 
   $('#search-form').on('change', 'select', function() {
     var elm = $(this);
-    elm.next('.add-remove-rule').toggleClass('disabled', elm.val());
+    elm.next('.add-remove-rule').toggleClass('disabled', !elm.val());
   });
 
   $('#search-form').on('input', function(evt) {
