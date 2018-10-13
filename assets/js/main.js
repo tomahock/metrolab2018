@@ -9,7 +9,7 @@
   function search() {
     console.log(query);
     if (!query.lat || !query.lng) return;
-    $(markers).each(function() {
+    $(markers).each(function(marker) {
       marker.setMap(null);
     });
     markers = [];
